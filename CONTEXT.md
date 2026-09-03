@@ -8,9 +8,17 @@ Sistema de comanda eletrônica, autoatendimento e gerenciamento de pedidos para 
 Registro de consumo único associado a uma mesa ou cartão de cliente, agregando todos os pedidos efetuados durante o atendimento.
 _Avoid_: Conta, Ticket, Subtotal
 
+**Documento de Comanda**:
+Estrutura JSON atômica persistida no Astra DB que agrupa os dados da comanda, seus pedidos, itens e adicionais em um único registro.
+_Avoid_: Linha de Comanda, Registro Relacional
+
 **Mesa**:
 Ponto físico de atendimento no estabelecimento, identificado por número e associado a um QR Code para acesso do cliente.
 _Avoid_: Lugar, Assento
+
+**Mapa de Mesas**:
+Grade visual no aplicativo do garçom exibindo o status de cada mesa por cores (🟢 Livre, 🔴 Em Atendimento, 🟡 Aguardando Fechamento).
+_Avoid_: Lista de Mesas, Tabela de Lugares
 
 **Sessão de Mesa**:
 Token de acesso temporário gerado ao ler o QR Code da mesa, permitindo que o cliente faça pedidos sem cadastro prévio.
@@ -19,6 +27,10 @@ _Avoid_: Auth Token, Login do Cliente
 **PIN de Funcionário**:
 Código numérico de 6 dígitos utilizado para autenticação rápida de garçons, cozinheiros e caixas nas interfaces operacionais.
 _Avoid_: Senha do Garçom, Passcode
+
+**Teclado PIN (PIN Pad)**:
+Interface tátil numérica para digitação rápida do código de 6 dígitos pelos funcionários no aplicativo móvel ou web.
+_Avoid_: Teclado Numérico Generico
 
 **Papel (Role)**:
 Perfil de acesso atribuído a um funcionário (ex.: Garçom, Cozinha, Caixa, Administrador) que estabelece as permissões no sistema (RBAC).
@@ -31,6 +43,10 @@ _Avoid_: Solicitação, Requisição, Order
 **Estado do Pedido**:
 Fase atual de preparo e entrega do pedido (`Pendente` -> `Em Preparo` -> `Pronto` -> `Entregue` -> `Cancelado`).
 _Avoid_: Status do Prato, Fase do Pedido
+
+**Alerta de Espera**:
+Sinalização visual no KDS disparada quando um pedido permanece em preparo acima do tempo limite tolerável (15 minutos).
+_Avoid_: Warning de Atraso, Timer Excedido
 
 **Estado da Comanda**:
 Situação atual da comanda no estabelecimento (`Aberta` -> `Em Atendimento` -> `Aguardando Fechamento` -> `Fechada` -> `Cancelada`).
