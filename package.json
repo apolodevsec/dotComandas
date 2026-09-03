@@ -17,6 +17,7 @@
   "dependencies": {
     "@datastax/astra-db-ts": "^2.3.0",
     "@types/jsonwebtoken": "^9.0.10",
+    "dotenv": "^17.4.2",
     "jsonwebtoken": "^9.0.3"
   }
 }
