@@ -8,6 +8,7 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@datastax/astra-db-ts": "^1.4.1",
     "@dotcomandas/shared": "file:../../packages/shared",
     "jsonwebtoken": "^9.0.2"
   },
