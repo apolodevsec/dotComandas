@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { KDSBoard } from '../components/KDSBoard';
 import { Pedido, EstadoPedido } from '@dotcomandas/shared';
@@ -10,7 +12,7 @@ const DEMO_PEDIDOS: Pedido[] = [
     origem: 'Cliente',
     estado: 'Pendente',
     total: 32.5,
-    createdAt: new Date(Date.now() - 18 * 60 * 1000).toISOString(),
+    createdAt: new Date(Date.now() - 18 * 60 * 1000).toISOString(), // 18 min atras (alerta)
     updatedAt: new Date().toISOString(),
     itens: [
       {
@@ -90,7 +92,7 @@ const DEMO_PEDIDOS: Pedido[] = [
   },
 ];
 
-export default function HomePage() {
+export default function KDSPage() {
   const [pedidos, setPedidos] = useState<Pedido[]>(DEMO_PEDIDOS);
 
   const handleAvancarEstado = (pedidoId: string, novoEstado: EstadoPedido) => {
