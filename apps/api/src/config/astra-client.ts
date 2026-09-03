@@ -1,5 +1,11 @@
-import 'dotenv/config';
+import path from 'path';
+import dotenv from 'dotenv';
 import { DataAPIClient, Db } from '@datastax/astra-db-ts';
+
+// Carregar .env do diretorio local ou da raiz do monorepo
+dotenv.config(); // tenta no CWD
+dotenv.config({ path: path.resolve(process.cwd(), '../../.env') }); // tenta na raiz do monorepo
+dotenv.config({ path: path.resolve(__dirname, '../../../../.env') }); // tenta relativo ao arquivo
 
 const token = process.env.ASTRA_DB_APPLICATION_TOKEN;
 const endpoint = process.env.ASTRA_DB_API_ENDPOINT;
