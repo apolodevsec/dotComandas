@@ -19,12 +19,22 @@ export interface ItemPedido {
 
 export type OrigemPedido = 'Cliente' | 'Garcom';
 
+export type StatusDisparoEtapa = 'Aguardando Disparo' | 'Liberado';
+
+export interface EtapaPedido {
+  ordem: number;
+  etapa: 'Entrada' | 'Prato Principal' | 'Sobremesa' | 'Digestivo' | string;
+  statusDisparo: StatusDisparoEtapa;
+  itens: ItemPedido[];
+}
+
 export interface Pedido {
   id: string;
   comandaId: string;
   mesaId: string;
   origem: OrigemPedido;
   itens: ItemPedido[];
+  etapas?: EtapaPedido[];
   total: number;
   estado: EstadoPedido;
   createdAt: string;

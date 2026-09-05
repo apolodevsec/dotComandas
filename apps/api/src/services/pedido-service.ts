@@ -5,6 +5,7 @@ import {
   AdicionalSelecionado,
   OrigemPedido,
   calcularTotalItemPedido,
+  EstadoPedido,
 } from '@dotcomandas/shared';
 import { buscarItemCardapioPorId } from './cardapio-service.js';
 import { buscarMesaPorId } from './mesa-service.js';
@@ -126,6 +127,56 @@ export function criarPedido(
   comanda.updatedAt = new Date().toISOString();
 
   return { pedido: novoPedido, comanda };
+}
+
+export function dispararEtapaPedido(
+  pedidoId: string,
+  ordemEtapa: number,
+  pinFuncionarios: string
+): Pedido {
+  if (!pinFuncionarios || pinFuncionarios.length !== 6 || !/^\d{6}$/.test(pinFuncionarios)) {
+    throw new Error('PIN deve possuir 6 dígitos numéricos');
+  }
+
+  const pedido = PEDIDOS_DB.get(pedidoId);
+  if (!pedido) {
+    throw new Error('Pedido não encontrado');
+  }
+
+  if (!pedido.etapas || pedido.etapas.length === 0) {
+    return pedido;
+  }
+
+  const etapaAlvo = pedido.etapas.find((e) => e.ordem === ordemEtapa);
+  if (!etapaAlvo) {
+    throw new Error(`Etapa ${ordemEtapa} não encontrada no pedido`);
+  }
+
+  // Validação do Bloqueio Sequencial Estrito
+  if (ordemEtapa > 1) {
+    const etapaAnterior = pedido.etapas.find((e) => e.ordem === ordemEtapa - 1);
+    if (etapaAnterior) {
+      const temItensIncompletos = etapaAnterior.itens.some((item) => {
+        const estadoItem = (item as any).estado as EstadoPedido | undefined;
+        if (estadoItem) {
+          return estadoItem !== 'Pronto' && estadoItem !== 'Entregue';
+        }
+        return pedido.estado !== 'Pronto' && pedido.estado !== 'Entregue';
+      });
+
+      if (temItensIncompletos) {
+        throw new Error('ETAPA_ANTERIOR_PENDENTE: A etapa anterior ainda está em preparo na cozinha');
+      }
+    }
+  }
+
+  etapaAlvo.statusDisparo = 'Liberado';
+  pedido.updatedAt = new Date().toISOString();
+  return pedido;
+}
+
+export function registrarPedidoDireto(pedido: Pedido): void {
+  PEDIDOS_DB.set(pedido.id, pedido);
 }
 
 export function buscarComandaPorId(comandaId: string): Comanda {

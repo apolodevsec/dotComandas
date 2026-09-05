@@ -12,17 +12,17 @@ const DEMO_PEDIDOS: Pedido[] = [
     origem: 'Cliente',
     estado: 'Pendente',
     total: 32.5,
-    createdAt: new Date(Date.now() - 18 * 60 * 1000).toISOString(), // 18 min atras (alerta)
+    createdAt: new Date(Date.now() - 18 * 60 * 1000).toISOString(), // 18 min atrás (alerta)
     updatedAt: new Date().toISOString(),
     itens: [
       {
         id: 'item-101-1',
         itemCardapioId: 'item-1',
-        nome: 'Hambúrguer Artesanal',
+        nome: 'Hambúrguer Artesanal Wagyū',
         precoUnitario: 28.0,
         quantidade: 1,
         adicionaisSelecionados: [{ opcaoId: 'op-bacon', nome: 'Bacon Crocante', precoUnitario: 4.5 }],
-        observacao: 'Ao ponto, sem cebola',
+        observacao: 'Ao ponto da casa, sem cebola',
         precoTotalItem: 32.5,
       },
     ],
@@ -40,9 +40,9 @@ const DEMO_PEDIDOS: Pedido[] = [
       {
         id: 'item-102-1',
         itemCardapioId: 'item-2',
-        nome: 'Refrigerante Lata 350ml',
-        precoUnitario: 6.0,
-        quantidade: 3,
+        nome: 'Vinho Tinto Reserva Barolo',
+        precoUnitario: 18.0,
+        quantidade: 1,
         adicionaisSelecionados: [],
         precoTotalItem: 18.0,
       },
@@ -61,10 +61,10 @@ const DEMO_PEDIDOS: Pedido[] = [
       {
         id: 'item-103-1',
         itemCardapioId: 'item-1',
-        nome: 'Hambúrguer Artesanal',
+        nome: 'Risotto de Cogumelos Selvagens',
         precoUnitario: 28.0,
         quantidade: 2,
-        adicionaisSelecionados: [{ opcaoId: 'op-queijo', nome: 'Queijo Extra', precoUnitario: 3.0 }],
+        adicionaisSelecionados: [{ opcaoId: 'op-queijo', nome: 'Trufas Negras', precoUnitario: 3.0 }],
         precoTotalItem: 56.0,
       },
     ],
@@ -82,7 +82,7 @@ const DEMO_PEDIDOS: Pedido[] = [
       {
         id: 'item-104-1',
         itemCardapioId: 'item-3',
-        nome: 'Pudim de Leite',
+        nome: 'Petit Gâteau de Chocolate 70%',
         precoUnitario: 12.0,
         quantidade: 1,
         adicionaisSelecionados: [],
@@ -109,19 +109,19 @@ export default function KDSPage() {
       mesaId: numeroMesa.toString().padStart(2, '0'),
       origem: Math.random() > 0.5 ? 'Cliente' : 'Garcom',
       estado: 'Pendente',
-      total: 28.0,
+      total: 35.0,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
       itens: [
         {
           id: `item-${Date.now()}`,
           itemCardapioId: 'item-1',
-          nome: 'Hambúrguer Artesanal',
-          precoUnitario: 28.0,
+          nome: 'Medalhão de Mignon com Rôti',
+          precoUnitario: 35.0,
           quantidade: 1,
-          adicionaisSelecionados: [{ opcaoId: 'op-ponto', nome: 'Bem Passada', precoUnitario: 0 }],
-          observacao: 'Pedido inserido ao vivo',
-          precoTotalItem: 28.0,
+          adicionaisSelecionados: [{ opcaoId: 'op-ponto', nome: 'Ponto para Mal', precoUnitario: 0 }],
+          observacao: 'Pedido em tempo real',
+          precoTotalItem: 35.0,
         },
       ],
     };
@@ -134,24 +134,17 @@ export default function KDSPage() {
       <div
         style={{
           position: 'absolute',
-          top: '12px',
-          right: '20px',
+          top: '2.5rem',
+          right: '5rem',
           zIndex: 100,
         }}
       >
         <button
           onClick={handleAdicionarPedidoDemo}
-          style={{
-            backgroundColor: '#3b82f6',
-            color: '#fff',
-            border: 'none',
-            padding: '8px 16px',
-            borderRadius: '6px',
-            cursor: 'pointer',
-            fontWeight: 'bold',
-          }}
+          className="btn-secondary"
+          style={{ width: 'auto', padding: '0.6rem 1.25rem' }}
         >
-          ➕ Simular Novo Pedido Chegando
+          + SIMULAR NOVO PEDIDO
         </button>
       </div>
 

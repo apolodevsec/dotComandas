@@ -28,6 +28,7 @@ export interface ItemCardapio {
   precoBase: number;
   imagemUrl?: string;
   disponivel: boolean;
+  harmonizacao?: string;
   gruposAdicionais: GrupoAdicional[];
   createdAt: string;
   updatedAt: string;

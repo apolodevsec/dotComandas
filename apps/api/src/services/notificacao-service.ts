@@ -13,6 +13,16 @@ export interface NotificacaoProntoPayload {
   timestamp: string;
 }
 
+export interface NotificacaoEtapaConcluidaPayload {
+  tipo: 'etapa:concluida_notificacao';
+  pedidoId: string;
+  mesaId: string;
+  ordemEtapaConcluida: number;
+  etapaNome: string;
+  mensagem: string;
+  timestamp: string;
+}
+
 // Inscrever servico de notificacao nos eventos do KDS
 kdsEvents.on('kds:event', (event: KDSEventPayload) => {
   if (event.tipo === 'pedido:estado_alterado' && event.pedido.estado === 'Pronto') {
@@ -32,6 +42,27 @@ export function dispararNotificacaoPedidoPronto(pedido: Pedido): NotificacaoPron
 
   // Transmite para canal de garçons e para a sessão da mesa do cliente
   notificacoesEvents.emit(`garcom:notificacao`, payload);
+  notificacoesEvents.emit(`mesa:${pedido.mesaId}:notificacao`, payload);
+
+  return payload;
+}
+
+export function dispararNotificacaoEtapaConcluida(
+  pedido: Pedido,
+  ordemEtapa: number,
+  etapaNome: string
+): NotificacaoEtapaConcluidaPayload {
+  const payload: NotificacaoEtapaConcluidaPayload = {
+    tipo: 'etapa:concluida_notificacao',
+    pedidoId: pedido.id,
+    mesaId: pedido.mesaId,
+    ordemEtapaConcluida: ordemEtapa,
+    etapaNome,
+    mensagem: `A etapa '${etapaNome}' da Mesa ${pedido.mesaId} foi concluída na cozinha!`,
+    timestamp: new Date().toISOString(),
+  };
+
+  notificacoesEvents.emit('garcom:notificacao', payload);
   notificacoesEvents.emit(`mesa:${pedido.mesaId}:notificacao`, payload);
 
   return payload;

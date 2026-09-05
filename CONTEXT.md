@@ -71,3 +71,12 @@ _Avoid_: Checkout, Baixa de Comanda
 **Forma de Pagamento**:
 Método financeiro utilizado para liquidar o valor total no fechamento da comanda (Dinheiro, Crédito, Débito, Pix).
 _Avoid_: Meio de Pagamento, Modalidade de Pago
+
+**Etapa de Cozinha**:
+Sequenciamento e momento de disparo para liberação de preparo de um item ou grupo de pedidos na cozinha (ex.: Entrada, Prato Principal, Sobremesa), mantendo o ritmo cadenciado do atendimento.
+_Avoid_: Rodada de Pratos, Marcha, Turno de Preparo
+
+**Harmonização**:
+Sugestão técnica e vinculação de bebidas ou rótulos a um item do cardápio ou etapa de degustação para enriquecer a experiência do cliente.
+_Avoid_: Combo, Pairing, Sugestão do Chef
+
