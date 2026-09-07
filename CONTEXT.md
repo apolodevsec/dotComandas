@@ -80,3 +80,6 @@ _Avoid_: Rodada de Pratos, Marcha, Turno de Preparo
 Sugestão técnica e vinculação de bebidas ou rótulos a um item do cardápio ou etapa de degustação para enriquecer a experiência do cliente.
 _Avoid_: Combo, Pairing, Sugestão do Chef
 
+**Chamado de Mesa**:
+Alerta em tempo real disparado pelo cliente em seu dispositivo móvel (para suporte ou solicitação de conta) que sinaliza o garçom piscando a mesa em amarelo no Mapa de Mesas e emitindo um aviso sonoro/push.
+_Avoid_: Notificação de Garçom, Chamada de Atendimento, Bip
