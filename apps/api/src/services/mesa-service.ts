@@ -64,3 +64,54 @@ export function verificarTokenSessaoMesa(token: string): MesaTokenPayload {
     throw new Error('Sessão de mesa inválida ou expirada');
   }
 }
+
+/**
+ * Gera um token estático assinado permanente para impressão no QR Code físico da mesa.
+ */
+export function gerarTokenEstaticoMesa(mesaId: string): string {
+  const mesa = buscarMesaPorId(mesaId);
+  const payload: MesaTokenPayload = {
+    tipo: 'ClienteMesa',
+    mesaId: mesa.id,
+    numeroMesa: mesa.numero,
+  };
+  return jwt.sign(payload, JWT_SECRET); // Sem expiração (estático permanente)
+}
+
+/**
+ * Valida o acesso à rota /m/:mesaId via QR Code estático verificando a integridade do token
+ * e o estado ativo da comanda no Astra DB.
+ */
+export function validarAcessoMesaQrCodeEstatico(
+  mesaId: string,
+  token: string,
+  comandaEstado: string
+): { sessaoValida: boolean; mesaId?: string; mensagemErro?: string } {
+  try {
+    const decoded = jwt.verify(token, JWT_SECRET) as MesaTokenPayload;
+    if (decoded.mesaId !== mesaId || decoded.tipo !== 'ClienteMesa') {
+      return {
+        sessaoValida: false,
+        mensagemErro: 'Token de QR Code inválido ou adulterado para esta mesa.',
+      };
+    }
+
+    if (comandaEstado === 'Fechada' || comandaEstado === 'Cancelada') {
+      return {
+        sessaoValida: false,
+        mensagemErro: 'Esta sessão de mesa foi encerrada. Leia o QR Code novamente para abrir uma nova comanda.',
+      };
+    }
+
+    return {
+      sessaoValida: true,
+      mesaId: decoded.mesaId,
+    };
+  } catch {
+    return {
+      sessaoValida: false,
+      mensagemErro: 'Token de QR Code inválido ou adulterado.',
+    };
+  }
+}
+
