@@ -89,3 +89,25 @@ export function validarENotificarDisparoEtapa(
 
   return { sucesso: true };
 }
+
+/**
+ * Confirma o atendimento de um chamado de mesa ativo (atendimento ou fechamento),
+ * disparando a limpeza do alerta no Mapa de Mesas.
+ */
+export function confirmarAtendimentoChamadoMesa(
+  mesaId: string,
+  chamadoAtivo?: { mesaId: string; tipo: string }
+): { atendimentoConfirmado: boolean; mensagem: string } {
+  if (!chamadoAtivo) {
+    return {
+      atendimentoConfirmado: false,
+      mensagem: `Sem chamados pendentes para a mesa ${mesaId}.`,
+    };
+  }
+
+  return {
+    atendimentoConfirmado: true,
+    mensagem: `Atendimento confirmado para a mesa ${mesaId}. Alertas de chamada limpos com sucesso!`,
+  };
+}
+

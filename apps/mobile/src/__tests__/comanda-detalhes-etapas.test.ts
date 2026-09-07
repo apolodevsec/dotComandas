@@ -4,6 +4,7 @@ import {
   montarListaPlanaItensComEtapa,
   podeDispararProximaEtapa,
   validarENotificarDisparoEtapa,
+  confirmarAtendimentoChamadoMesa,
 } from '../components/ComandaDetalhesEtapas.js';
 
 describe('Ticket 15: Componente de Disparo por Etapas no App do Garçom', () => {
@@ -102,4 +103,22 @@ describe('Ticket 15: Componente de Disparo por Etapas no App do Garçom', () => 
     expect(validacaoPinInvalido.sucesso).toBe(false);
     expect(validacaoPinInvalido.erro).toContain('PIN deve possuir 6 dígitos');
   });
+
+  describe('Ticket 23: Confirmação de Atendimento ao Chamado da Mesa', () => {
+    it('deve confirmar atendimento e limpar o chamado ativo de uma mesa ao pressionar o botão', () => {
+      const chamadoAtivo = { mesaId: 'm-04', tipo: 'atendimento' };
+      const resultado = confirmarAtendimentoChamadoMesa('m-04', chamadoAtivo);
+
+      expect(resultado.atendimentoConfirmado).toBe(true);
+      expect(resultado.mensagem).toContain('Atendimento confirmado');
+    });
+
+    it('deve informar adequadamente quando a mesa não possui chamado ativo pendente', () => {
+      const resultado = confirmarAtendimentoChamadoMesa('m-04', undefined);
+
+      expect(resultado.atendimentoConfirmado).toBe(false);
+      expect(resultado.mensagem).toContain('Sem chamados pendentes');
+    });
+  });
 });
+

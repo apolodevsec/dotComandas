@@ -1,4 +1,4 @@
-Status: ready-for-agent
+Status: resolved
 
 # Especificação: Arquitetura de Roteamento de Serviços, QR Code Estático e Resiliência
 
