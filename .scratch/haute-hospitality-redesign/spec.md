@@ -1,6 +1,6 @@
 # Spec: Haute Hospitality Design System, Pacote @dotcomandas/ui & Etapas de Cozinha
 
-Status: ready-for-agent
+Status: resolved
 
 ## Problem Statement
 

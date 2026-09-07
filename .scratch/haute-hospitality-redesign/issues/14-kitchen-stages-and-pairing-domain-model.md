@@ -1,6 +1,6 @@
 # Ticket 14: Modelagem de Etapas de Cozinha e Harmonização nos Pedidos
 
-Status: ready-for-agent
+Status: resolved
 
 ## Descrição
 Atualizar o modelo de dados de `Pedido` em `@dotcomandas/shared` e no Astra DB para permitir o envio cadenciado de pratos em etapas (`Entrada`, `Prato Principal`, `Sobremesa`) com `statusDisparo`.

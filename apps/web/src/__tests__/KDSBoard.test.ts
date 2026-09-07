@@ -51,8 +51,15 @@ describe('Ticket 10 & 13: Painel KDS Board da Cozinha & Alto Contraste Operacion
       },
     ];
 
-    const board = KDSBoard({ pedidos: pedidosMock, onAvancarEstado: vi.fn(), altoContraste: true });
+    const onToggle = vi.fn();
+    const board = KDSBoard({ pedidos: pedidosMock, onAvancarEstado: vi.fn(), altoContraste: true, onToggleAltoContraste: onToggle });
     expect(board).toBeDefined();
     expect(board.props.className).toContain('alto-contraste-operacional');
+  });
+
+  it('deve aceitar a prop onToggleAltoContraste para alternar o modo de alto contraste', () => {
+    const onToggle = vi.fn();
+    const board = KDSBoard({ pedidos: [], onAvancarEstado: vi.fn(), onToggleAltoContraste: onToggle });
+    expect(board).toBeDefined();
   });
 });

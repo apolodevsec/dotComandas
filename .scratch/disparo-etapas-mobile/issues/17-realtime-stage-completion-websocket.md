@@ -1,6 +1,6 @@
 # Ticket 17: Evento Realtime ETAPA_CONCLUIDA via WebSockets
 
-Status: ready-for-agent
+Status: resolved
 
 ## Descrição
 Implementar a emissão do evento WebSocket `ETAPA_CONCLUIDA` quando a cozinha finaliza o último prato de uma etapa no KDS, atualizando instantaneamente o aplicativo do garçom.

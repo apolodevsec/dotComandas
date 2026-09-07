@@ -1,6 +1,6 @@
 # Ticket 15: Componente de Disparo por Etapas no App do Garçom (Mobile)
 
-Status: ready-for-agent
+Status: resolved
 
 ## Descrição
 Desenvolver o componente de visualização de comanda por etapas no aplicativo móvel (`apps/mobile`), exibindo a lista plana com marcadores de etapas e o botão de disparo condicional protegido por PIN.

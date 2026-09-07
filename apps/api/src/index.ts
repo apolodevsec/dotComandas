@@ -71,9 +71,35 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  const matchDisparoEtapa = url.pathname.match(/^\/api\/(?:comandas|pedidos)\/([^/]+)\/etapas\/([^/]+)\/disparar$/);
+  if (matchDisparoEtapa && req.method === 'POST') {
+    const pedidoId = matchDisparoEtapa[1];
+    const ordemEtapa = parseInt(matchDisparoEtapa[2], 10);
+    let body = '';
+    req.on('data', chunk => body += chunk);
+    req.on('end', () => {
+      try {
+        const { pinFuncionarios, pin } = JSON.parse(body || '{}');
+        const pinFinal = pinFuncionarios || pin || '';
+        const { dispararEtapaPedido } = require('./services/pedido-service.js');
+        const resultado = dispararEtapaPedido(pedidoId, ordemEtapa, pinFinal);
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ sucesso: true, pedido: resultado }));
+      } catch (err: any) {
+        const isEtapaPendente = err.message && err.message.includes('ETAPA_ANTERIOR_PENDENTE');
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({
+          erro: err.message,
+          codigo: isEtapaPendente ? 'ETAPA_ANTERIOR_PENDENTE' : 'ERRO_VALIDACAO',
+        }));
+      }
+    });
+    return;
+  }
+
   // Rota padrão 404
   res.writeHead(404, { 'Content-Type': 'application/json' });
-  res.end(JSON.stringify({ erro: 'Endpoint não encontrado', rotasDisponiveis: ['/health', '/api/cardapio', '/api/auth/pin', '/api/sessoes/mesa'] }));
+  res.end(JSON.stringify({ erro: 'Endpoint não encontrado', rotasDisponiveis: ['/health', '/api/cardapio', '/api/auth/pin', '/api/sessoes/mesa', '/api/pedidos/:id/etapas/:ordem/disparar'] }));
 });
 
 server.listen(PORT, () => {

@@ -1,6 +1,6 @@
 # Ticket 13: Alternador de Modo de Alto Contraste Operacional no KDS
 
-Status: ready-for-agent
+Status: resolved
 
 ## Descrição
 Implementar no painel KDS (`apps/web`) um alternador de modo de alto contraste para destacar alertas visuais de urgência durante o atendimento em horários de pico.

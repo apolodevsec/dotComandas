@@ -1,6 +1,6 @@
 # Ticket 16: Validação Estrita do Bloqueio Sequencial na API (Backend)
 
-Status: ready-for-agent
+Status: resolved
 
 ## Descrição
 Implementar o endpoint `POST /api/comandas/:id/etapas/:ordem/disparar` no serviço `apps/api` com validação de PIN de funcionário e verificação estrita de conclusão da etapa anterior no Astra DB.

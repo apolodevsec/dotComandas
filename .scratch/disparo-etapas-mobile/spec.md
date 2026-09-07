@@ -1,6 +1,6 @@
 # Spec: Interface de Disparo por Etapas no App do Garçom (Mobile)
 
-Status: ready-for-agent
+Status: resolved
 
 ## Problem Statement
 

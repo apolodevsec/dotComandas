@@ -14,6 +14,7 @@ export interface ItemPedido {
   quantidade: number;
   adicionaisSelecionados: AdicionalSelecionado[];
   observacao?: string;
+  harmonizacao?: string;
   precoTotalItem: number;
 }
 

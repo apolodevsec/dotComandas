@@ -1,0 +1,38 @@
+:root {
+  --surface: #131313;
+  --surface-dim: #131313;
+  --surface-bright: #393939;
+  --surface-container-lowest: #0e0e0e;
+  --surface-container-low: #1b1c1c;
+  --surface-container: #1f2020;
+  --surface-container-high: #2a2a2a;
+  --surface-container-highest: #353535;
+  --on-surface: #e4e2e1;
+  --on-surface-variant: #d3c4b7;
+  --primary: #c49a6c;
+  --primary-light: #ecbe8e;
+  --on-primary: #2a2a2a;
+  --surface-light: #f7f7f7;
+  --on-light-text: #333333;
+  --pure-white: #ffffff;
+  --error: #ffb4ab;
+  --on-error: #690005;
+
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
+
+  --border-radius-rect: 0px;
+
+  --gutter-mobile: 1rem;
+  --gutter-desktop: 2.5rem;
+  --margin-mobile: 1.25rem;
+  --margin-desktop: 5rem;
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1.25rem;
+  --space-lg: 2rem;
+  --space-xl: 3.5rem;
+  --space-2xl: 5.5rem;
+  --space-3xl: 8rem;
+}

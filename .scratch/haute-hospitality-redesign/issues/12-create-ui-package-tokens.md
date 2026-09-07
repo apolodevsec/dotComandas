@@ -1,6 +1,6 @@
 # Ticket 12: Pacote @dotcomandas/ui e Tokens Universais Haute Hospitality
 
-Status: ready-for-agent
+Status: resolved
 
 ## Descrição
 Criar o pacote compartilhado `packages/ui` no monorepo e exportar `tokens.ts` e `variables.css` com as definições do `design.md`.
