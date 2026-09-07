@@ -97,9 +97,29 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  const matchChamadoMesa = url.pathname.match(/^\/api\/(?:mesas|comandas)\/([^/]+)\/chamado$/);
+  if (matchChamadoMesa && req.method === 'POST') {
+    const mesaId = matchChamadoMesa[1];
+    let body = '';
+    req.on('data', chunk => body += chunk);
+    req.on('end', () => {
+      try {
+        const { tipo } = JSON.parse(body || '{}');
+        const { solicitarChamadoMesa } = require('./services/chamado-service.js');
+        const resultado = solicitarChamadoMesa(mesaId, tipo || 'atendimento');
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ sucesso: true, chamado: resultado }));
+      } catch (err: any) {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ erro: err.message }));
+      }
+    });
+    return;
+  }
+
   // Rota padrão 404
   res.writeHead(404, { 'Content-Type': 'application/json' });
-  res.end(JSON.stringify({ erro: 'Endpoint não encontrado', rotasDisponiveis: ['/health', '/api/cardapio', '/api/auth/pin', '/api/sessoes/mesa', '/api/pedidos/:id/etapas/:ordem/disparar'] }));
+  res.end(JSON.stringify({ erro: 'Endpoint não encontrado', rotasDisponiveis: ['/health', '/api/cardapio', '/api/auth/pin', '/api/sessoes/mesa', '/api/pedidos/:id/etapas/:ordem/disparar', '/api/mesas/:id/chamado'] }));
 });
 
 server.listen(PORT, () => {
