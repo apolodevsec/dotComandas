@@ -1,4 +1,4 @@
-Status: ready-for-agent
+Status: resolved
 
 # Especificação: Interface Mobile do Cliente (PWA) e Chamados no Mapa de Mesas
 
