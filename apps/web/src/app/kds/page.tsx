@@ -3,6 +3,8 @@
 import React, { useState } from 'react';
 import { KDSBoard } from '../../components/KDSBoard';
 import { Pedido, EstadoPedido } from '@dotcomandas/shared';
+import '../../styles/kds.css';
+
 
 const DEMO_PEDIDOS: Pedido[] = [
   {

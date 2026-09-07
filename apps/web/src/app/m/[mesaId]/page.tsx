@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useParams } from 'next/navigation';
 
 interface ItemClienteDemo {
   id: string;
@@ -17,11 +18,13 @@ const CARDAPIO_CLIENTE_DEMO: ItemClienteDemo[] = [
   { id: 'i4', nome: 'Petit Gâteau Gold 70% Cacau', categoria: 'Sobremesas', preco: 42.0, descricao: 'Bolinho quente de cacau belga com sorvete artesanal de fava de baunilha' },
 ];
 
-export default function ClienteMesaPage({ params }: { params: { mesaId: string } }) {
-  const { mesaId } = params;
+export default function ClienteMesaPage() {
+  const routeParams = useParams();
+  const rawMesaId = routeParams?.mesaId;
+  const mesaId = Array.isArray(rawMesaId) ? rawMesaId[0] : (rawMesaId as string) || '1';
+
   const [categoriaAtiva, setCategoriaAtiva] = useState<'Entradas' | 'Pratos' | 'Bebidas' | 'Sobremesas'>('Entradas');
   const [carrinho, setCarrinho] = useState<{ item: ItemClienteDemo; quantidade: number }[]>([]);
-  const [chamadoAtivo, setChamadoAtivo] = useState(false);
   const [toastMensagem, setToastMensagem] = useState('');
 
   const itensFiltrados = CARDAPIO_CLIENTE_DEMO.filter((item) => item.categoria === categoriaAtiva);
@@ -40,7 +43,6 @@ export default function ClienteMesaPage({ params }: { params: { mesaId: string }
   };
 
   const handleChamarGarcom = (tipo: string) => {
-    setChamadoAtivo(true);
     setToastMensagem(`🛎️ Chamado de ${tipo} enviado com sucesso! O garçom está a caminho.`);
     setTimeout(() => setToastMensagem(''), 5000);
   };
